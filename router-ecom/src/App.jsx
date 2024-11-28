@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import {BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import './App.css'
 import Navbar from './components/Navbar.jsx'
 import Cart from './components/Cart.jsx'
@@ -34,20 +35,23 @@ function App() {  const [cartItems, setCartItems] = useState([]);
 
 
   return (
-    <>
-      <Navbar cartCount={cartItems.length} openCart={openCart} openFav={openFav} logo={logo}/>
-      {
-            isCartOpen && (
-              <Cart cartItems={cartItems} closeCart={closeCart} removeFromCart={removeFromCart} />
-            )
-      }
-      {
-            isFavOpen && (
-              <Fav favItems={favItems} closeFav={closeFav} removeFromFav={removeFromFav} />
-            )
-      }
-      <List cartItems={cartItems} setCartItems={setCartItems} favItems={favItems} setfavItems={setfavItems}/>
-    </>
+    <Router>
+      <nav>
+        <div><Link to="/">Shoppers</Link></div>
+        <div><Link to="/cart"></Link>cart</div>
+        <div><Link to="/favorites"></Link>fav</div>
+      </nav>
+      <Routes>
+        <Route path="/" element={<div>
+          <Navbar cartCount={cartItems.length} openCart={openCart} openFav={openFav} logo={logo}/>
+          <List cartItems={cartItems} setCartItems={setCartItems} favItems={favItems} setfavItems={setfavItems}/>
+          </div>}>
+        </Route>
+        <Route path="/cart" element={<Cart cartItems={cartItems} closeCart={closeCart} removeFromCart={removeFromCart}/>}></Route>
+        <Route path="/favorites" element={<Fav cartItems={cartItems} setCartItems={setCartItems} favItems={favItems} setfavItems={setfavItems}/>}></Route>
+      </Routes>
+    </Router>
+
   )
 }
 
