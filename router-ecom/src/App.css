@@ -100,7 +100,7 @@ h1{
 }
 .modal{
   background-color: beige;
-  position:fixed ;
+  /* position:fixed ; */
   display: flex;
   flex-direction: column;
   justify-content: center;
