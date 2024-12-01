@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import './App.css'
 import Cart from './components/Cart.jsx'
@@ -10,6 +10,9 @@ import { faHeart, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 function App() {  
   const [cartItems, setCartItems] = useState([]);
   const [favItems, setfavItems] = useState([]);
+  const [total, setTotal]=useState(0);
+  const [fin, setFin]=useState(0);
+
   const removeFromCart = (productId) => {
     setCartItems(cartItems.filter((item) => item.id !== productId));
   };
@@ -17,7 +20,14 @@ function App() {
   const removeFromFav = (productId) => {
     setfavItems(favItems.filter((item) => item.id !== productId));
   };
-
+  useEffect(() => {
+    let totalAmount = cartItems.reduce((total, item) => {
+      return total + (item.price * item.quantity);
+    }, 0);
+    setTotal(totalAmount.toFixed(2));
+    let discount= totalAmount-(totalAmount*.1);
+    setFin(discount.toFixed(2));
+}, [cartItems]);
 
   return (
     <Router>
@@ -36,7 +46,7 @@ function App() {
           <List cartItems={cartItems} setCartItems={setCartItems} favItems={favItems} setfavItems={setfavItems} />
           </div>}>
         </Route>
-        <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} />}></Route>
+        <Route path="/cart" element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} setCartItems={setCartItems} total={total} fin={fin} />}></Route>
         <Route path="/favorites" element={<Fav favItems={favItems}  removeFromFav={removeFromFav} />}></Route>
       </Routes>
     </Router>

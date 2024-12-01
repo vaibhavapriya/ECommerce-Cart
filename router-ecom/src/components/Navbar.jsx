@@ -14,8 +14,7 @@ function Navbar({filterOpt,setfilterOpt}) {
   };
 
   return (
-    <div>
-
+    <div className='close'>
       {
       isCartOpen && (
         <label name='form'>
@@ -29,7 +28,7 @@ function Navbar({filterOpt,setfilterOpt}) {
         </label>
       )
      }
-     <button onClick={openCart}><FontAwesomeIcon icon={faFilter} /></button>
+     <button className='fil' onClick={openCart}><FontAwesomeIcon icon={faFilter} /></button>
     </div>
   )
 }

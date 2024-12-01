@@ -1,12 +1,12 @@
-import React , { useEffect, useState } from 'react'
+import React , { useCallback, useEffect, useState } from 'react'
 import Navbar from './Navbar.jsx'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart} from "@fortawesome/free-solid-svg-icons";
 
 function List({cartItems, setCartItems,favItems, setfavItems}) {
-    const [filterOpt, setfilterOpt] = useState('all');
-    const [display, setDisplay]=useState('all');
+    const [filterOpt, setfilterOpt] = useState('all'); 
     const [products, setProducts] = useState([]);//useEffect
+    const [display, setDisplay]=useState(products);
     console.log(products);
     //fetch api using useEffect
     useEffect(() => {
@@ -15,12 +15,21 @@ function List({cartItems, setCartItems,favItems, setfavItems}) {
             .then(data => setProducts(data))
         console.log(products);
     }, []);
+
+    useEffect(() => {
+        filterOpt === 'all'
+        ? setDisplay(products)
+        : setDisplay(products.filter((product) => product.category === filterOpt));
+    }, [filterOpt,products]);
+
     const addcart = (product) => {
         if (cartItems.find((item) => item.id === product.id)) {
             alert('Product already in cart');
         }
         else {
+            product.quantity = 1;
             setCartItems([...cartItems, product]);
+    
         }
     }
     const fav = (product) => {
@@ -36,7 +45,7 @@ function List({cartItems, setCartItems,favItems, setfavItems}) {
     <div>
         <Navbar filterOpt={filterOpt} setfilterOpt={setfilterOpt}/>
         <div className='items'>
-            {products.map((product) => (
+            {display.map((product) => (
                 <div key={product.id} className='card'>
                     <img src={product.image} alt={product.title} className='img' />
                     <h2 className='title'>{product.title}</h2>
