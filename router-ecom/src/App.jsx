@@ -7,9 +7,19 @@ import Fav from './components/Fav.jsx'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
+
 function App() {  
-  const [cartItems, setCartItems] = useState([]);
-  const [favItems, setfavItems] = useState([]);
+  // const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(() => {
+    // Retrieve cartItems from local storage on app load
+    const storedCart = localStorage.getItem('cartItems');
+    return storedCart ? JSON.parse(storedCart) : [];
+  });
+  const [favItems, setfavItems] = useState(() => {
+    // Retrieve cartItems from local storage on app load
+    const storedFav = localStorage.getItem('favItems');
+    return storedFav ? JSON.parse(storedFav) : [];
+  });
   const [total, setTotal]=useState(0);
   const [fin, setFin]=useState(0);
 
@@ -19,8 +29,13 @@ function App() {
 
   const removeFromFav = (productId) => {
     setfavItems(favItems.filter((item) => item.id !== productId));
+    
   };
+  useEffect(()=>{localStorage.setItem('favItems', JSON.stringify(favItems));},[favItems])
   useEffect(() => {
+    // Update local storage whenever cartItems change
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
     let totalAmount = cartItems.reduce((total, item) => {
       return total + (item.price * item.quantity);
     }, 0);
