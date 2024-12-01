@@ -5,7 +5,6 @@ function Fav({closeFav, favItems, removeFromFav }) {
   return (
     <div  className='mmodal'>
             <div  className='modal'>
-                <button onClick={closeFav} className='close'>X</button>
                 <h2 className=''>favorites</h2>
                 {favItems.length > 0 ? (
                     <div  className=''>
