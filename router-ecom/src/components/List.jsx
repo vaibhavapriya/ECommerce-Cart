@@ -1,8 +1,11 @@
 import React , { useEffect, useState } from 'react'
+import Navbar from './Navbar.jsx'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart} from "@fortawesome/free-solid-svg-icons";
 
 function List({cartItems, setCartItems,favItems, setfavItems}) {
+    const [filterOpt, setfilterOpt] = useState('all');
+    const [display, setDisplay]=useState('all');
     const [products, setProducts] = useState([]);//useEffect
     console.log(products);
     //fetch api using useEffect
@@ -31,6 +34,7 @@ function List({cartItems, setCartItems,favItems, setfavItems}) {
 
   return (
     <div>
+        <Navbar filterOpt={filterOpt} setfilterOpt={setfilterOpt}/>
         <div className='items'>
             {products.map((product) => (
                 <div key={product.id} className='card'>
