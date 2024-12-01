@@ -59,7 +59,7 @@ Shoppers is a React-based e-commerce application that fetches product data from 
 
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/vaibhavapriya/ECommerce-Cart.git](https://github.com/vaibhavapriya/ECommerce-Cart.git)
+   git clone https://github.com/vaibhavapriya/ECommerce-Cart.git
    cd ECommerce-Cart
    cd router-ecom
    ```
