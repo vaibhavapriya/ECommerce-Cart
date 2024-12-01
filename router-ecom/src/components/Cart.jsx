@@ -2,7 +2,6 @@ import React ,{useState,useCallback,useEffect} from 'react'
 import Quantity from './Quantity'
 
 function Cart({ cartItems, removeFromCart,setCartItems ,total,fin}) {
-
   return (
     <div className='mmodal'>
             <div className='modal'>
@@ -13,6 +12,7 @@ function Cart({ cartItems, removeFromCart,setCartItems ,total,fin}) {
                             <div key={item.id} className='mitem'>
                                 <img src={item.image} alt={item.title} className='mimg' />
                                 <div className='mh'>{item.title}</div> 
+                                <div><span> ₹{item.price * item.quantity}</span></div>
                                 <div className='changes'>
                                 <Quantity item={item} cartItems={cartItems} setCartItems={setCartItems}/>
                                 <button onClick={() => removeFromCart(item.id)} className='mr'>Remove</button>
@@ -22,8 +22,8 @@ function Cart({ cartItems, removeFromCart,setCartItems ,total,fin}) {
                         ))}
                     </div> 
                 ) : (<p>Your cart is empty.</p>)}
-                <h2>Total: {total}</h2>
-                <h2>Special price: {fin}</h2>
+                <h2>Total: ₹{total}</h2>
+                <h2>Special price: ₹{fin}</h2>
                 <button>BUY NOW</button>
             </div>
     </div>
