@@ -125,9 +125,10 @@ h1{
   width: 65%;
 }
 .close{
-  width: 100%;
+  width: 90%;
   display: flex;
   justify-content: end;
+  margin-top: 20px;
 }
 .fil{
 
